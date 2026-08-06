@@ -53,7 +53,7 @@ The network takes a sentence, converts it into a bag-of-words vector, and predic
 3. **Training loop:** For each labeled example, the network's prediction is compared to the true label, and the error is backpropagated to adjust every weight and bias, repeated over many epochs
 4. **Testing:** The trained network is evaluated on sentences it has never seen, to check whether it generalized rather than memorized
 
-> **Note:** since this is a bag-of-words model, it can only recognize exact words seen during training — words outside the training vocabulary are silently ignored. Expanding the training dataset is the most direct way to improve accuracy.
+> **Note:** since this is a bag-of-words model, it can only recognize exact words seen during training (words outside the training vocabulary are silently ignored). Expanding the training dataset is the most direct way to improve accuracy.
 
 ---
 
