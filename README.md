@@ -1,8 +1,8 @@
 # 🧠 Text Classifier Neural Network
 
-A small Java project implementing a binary text classifier neural network entirely from scratch — no ML libraries, no external dependencies. Built to understand exactly what's happening under the hood of a neural network: vectorization, forward passes, activation functions, and backpropagation, all written by hand with raw arrays and loops.
+A small Java project implementing a binary text classifier neural network entirely from scratch with no ML libraries and no external dependencies. Built to understand exactly what's happening under the hood of a neural network: vectorization, forward passes, activation functions, and backpropagation, all written by hand with raw arrays and loops.
 
-The network takes a sentence, converts it into a bag-of-words vector, and predicts a probability (0–100%) of it belonging to a target class — currently trained as a spam/ham classifier, but reusable for any binary text categorization task.
+The network takes a sentence, converts it into a bag-of-words vector, and predicts a probability (0–100%) of it belonging to a target class. Currently trained as a spam/ham classifier, but reusable for any binary text categorization task.
 
 ---
 
