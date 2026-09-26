@@ -15,8 +15,8 @@ public class Network {
 
     // === FIELDS — the network's entire learned "memory" ===
 
-    private final int inputSize;       // size of the vocabulary (number of input features)
-    private int hiddenSize = 16; // number of hidden neurons, fixed design choice
+    private final int inputSize; // size of the vocabulary (number of input features)
+    private int hiddenSize = 16; // number of hidden neurons
 
     // hiddenWeights[i][j] = strength of connection from input feature i -> hidden neuron j
     // shape: [inputSize][hiddenSize]
@@ -46,7 +46,7 @@ public class Network {
     public float[] getHiddenBias() { return hiddenBias; }
     public float[] getOutputWeights() { return outputWeights; }
 
-    // outputBias is a primitive (float) — returning it gives a COPY, not a reference.
+    // outputBias is a primitive (float) - returning it gives a copy, not a reference.
     // So mutating it from outside requires an explicit setter to write the new value back.
     public float getOutputBias() { return outputBias; }
     public void setOutputBias(float outputBias) {
@@ -68,7 +68,7 @@ public class Network {
         Random rand = new Random();
 
         // Randomly initialize every hidden layer weight to a small value in [-0.5, 0.5).
-        // This breaks "symmetry" — if all weights started equal (e.g. all 0),
+        // This breaks "symmetry", if all weights started equal (e.g. all 0),
         // every hidden neuron would compute the same thing and update identically
         // forever, making extra neurons pointless. Random values let each neuron
         // specialize differently during training.
