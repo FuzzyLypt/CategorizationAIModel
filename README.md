@@ -80,6 +80,9 @@ Saved models live in a `SavedModels/` folder (created automatically on first sav
 
 - Binary file format for saving/loading models (more compact, faster to read/write)
 - A converter utility to translate saved models between the text and binary formats
+- Multithreaded model training
+- Training data by file input
+- A lightweight UI
 
 ---
 
