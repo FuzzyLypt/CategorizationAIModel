@@ -17,7 +17,7 @@ public class TextPersistence {
             }
         }
 
-        PrintWriter writer = new PrintWriter(new FileWriter(saveFolderName.concat("/" + filename)));
+        PrintWriter writer = new PrintWriter(new FileWriter(saveFolderName.concat("/" + filename + ".txt")));
 
         String[] words = model.vocabulary.getWordsInOrder();
         writer.println(words.length);
@@ -51,7 +51,7 @@ public class TextPersistence {
     }
 
     public static TrainedModel load(String filename) throws IOException {
-        Scanner scanner = new Scanner(new File(saveFolderName.concat("/" + filename)));
+        Scanner scanner = new Scanner(new File(saveFolderName.concat("/" + filename + ".txt")));
 
         int vocabSize = Integer.parseInt(scanner.nextLine());
         Vocabulary vocab = new Vocabulary();

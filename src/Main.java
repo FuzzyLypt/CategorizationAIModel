@@ -3,6 +3,89 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
+    public static void saveNetwork(Scanner scanner, TrainedModel networkModel) {
+        System.out.println("""
+                Choose the save format:
+                
+                1 - Text (.txt) [Slower, modifiable]
+                2 - Binary (.bin) [Faster, unmodifiable]""");
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+            {
+                scanner.nextLine();
+                System.out.println("Insert the name of the model you are about to save: ");
+                String nameTxt = scanner.nextLine();
+                try {
+                    TextPersistence.save(networkModel, nameTxt);
+                }
+                catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            break;
+            case 2:
+            {
+                scanner.nextLine();
+                System.out.println("Insert the name of the model you are about to save: ");
+                String nameBin = scanner.nextLine();
+                try {
+                    BinaryPersistence.save(networkModel, nameBin);
+                }
+                catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+                break;
+            default:
+                System.out.println("Input not recognized, cancelling operation.");
+                break;
+        }
+    }
+
+    public static TrainedModel loadModel(Scanner scanner) {
+        TrainedModel networkModel = null;
+        System.out.println("""
+                Which file format you want to load?
+                
+                1 - Text (.txt)
+                2 - Binary (.bin)""");
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+            {
+                scanner.nextLine();
+                System.out.println("Insert the EXACT name of the model you want to load: ");
+                String name = scanner.nextLine();
+                try {
+                    networkModel = TextPersistence.load(name);
+                }
+                catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            break;
+            case 2:
+            {
+                scanner.nextLine();
+                System.out.println("Insert the EXACT name of the model you want to load: ");
+                String name = scanner.nextLine();
+                try {
+                    networkModel = BinaryPersistence.load(name);
+                }
+                catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            break;
+            default:
+                System.out.println("Unrecognized input in a return method. Exiting program...");
+                System.exit(0);
+                break;
+        }
+        return networkModel;
+    }
+
     public static TrainedModel training(Scanner scanner) {
         // === TRAINING DATA ===
         // A small labeled dataset — pairs of (sentence, label).
@@ -65,7 +148,8 @@ public class Main {
                 
                 1 - Continue
                 2 - Save network
-                0 - Exit\n""", epochs, learningRate);
+                0 - Exit
+                """, epochs, learningRate);
         int userInput1 = scanner.nextInt();
         scanner.nextLine();
 
@@ -73,17 +157,11 @@ public class Main {
             case 1:
                 break;
             case 2:
-            {
-                System.out.println("Insert the name of the model you are about to save: ");
-                String name = scanner.nextLine();
-                try {
-                    TextPersistence.save(networkModel, name);
-                }
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                saveNetwork(scanner, networkModel);
                 break;
-            }
+            default:
+                System.out.println("Unrecognized input.");
+                break;
         }
 
         return networkModel;
@@ -105,20 +183,13 @@ public class Main {
                 networkModel = training(scanner);
                 break;
             case 2:
-                System.out.println("\nInsert the EXACT name of the model you want to load: ");
-                String name = scanner.nextLine();
-                try {
-                    networkModel = TextPersistence.load(name);
-                }
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                networkModel = loadModel(scanner);
                 break;
             case 0:
                 System.exit(0);
                 break;
             default:
-                System.out.println("Input not recognized.");
+                System.out.println("Unrecognized input.");
                 System.exit(0);
                 break;
         }
