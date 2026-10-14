@@ -13,7 +13,7 @@ The network takes a sentence, converts it into a bag-of-words vector, and predic
 - **Backpropagation from scratch:** Full gradient descent implementation, including output-layer error, backward error propagation into the hidden layer, and weight/bias updates, with no autograd or external math libraries
 - **Trainable on custom datasets:** Swap in your own labeled sentences to train the network on any binary classification task
 - **Precomputed input vectors:** Training inputs are vectorized once before the epoch loop for efficiency, rather than repeating identical work every epoch
-- **Model persistence:** Save a trained model (vocabulary + weights) to a human-readable text file, and reload it later without retraining
+- **Model persistence:** Save a trained model (vocabulary + weights) to a human-readable text file or a binary file, and reload it later without retraining
 - **Interactive CLI:** A menu-driven console interface to train a new model or load a saved one, optionally save after training, and classify sentences in a loop
 
 ---
@@ -27,6 +27,7 @@ The network takes a sentence, converts it into a bag-of-words vector, and predic
 | `Trainer.java` | Implements backpropagation and updates the network's weights via `trainOne` |
 | `TrainedModel.java` | Bundles a `Vocabulary` and `Network` together, since a usable model needs both |
 | `TextPersistence.java` | Saves and loads a `TrainedModel` to/from a human-readable file in `SavedModels/` |
+| `BinaryPersistence.java` | Saves and loads a `TrainedModel` to/from a binary file in `SavedModels/` |
 | `Main.java` | Runs the interactive CLI — train or load a model, optionally save it, then test sentences in a loop |
 
 ---
@@ -78,7 +79,6 @@ Saved models live in a `SavedModels/` folder (created automatically on first sav
 
 ## Roadmap
 
-- Binary file format for saving/loading models (more compact, faster to read/write)
 - A converter utility to translate saved models between the text and binary formats
 - Multithreaded model training
 - Training data by file input
@@ -88,7 +88,7 @@ Saved models live in a `SavedModels/` folder (created automatically on first sav
 
 ## Tech Stack
 - **Language:** Java
-- **JDK:** OpenJDK 21+
+- **JDK:** OpenJDK 25+
 - **Dependencies:** none, pure Java (`java.util.HashMap`, `java.util.Random`, `java.io`, `java.util.Scanner`)
 
 ---
