@@ -38,7 +38,7 @@ public class Main {
             }
                 break;
             default:
-                System.out.println("Input not recognized, cancelling operation.");
+                System.out.println("\nUnrecognized input.");
                 break;
         }
     }
@@ -55,33 +55,36 @@ public class Main {
             case 1:
             {
                 scanner.nextLine();
-                System.out.println("Insert the EXACT name of the model you want to load: ");
+                System.out.println("Insert the EXACT name of the .txt model you want to load (without the file extension): ");
                 String name = scanner.nextLine();
                 try {
                     networkModel = TextPersistence.load(name);
                 }
                 catch (IOException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("An error has occurred and the model has not been loaded.");
+                    return null;
                 }
             }
             break;
             case 2:
             {
                 scanner.nextLine();
-                System.out.println("Insert the EXACT name of the model you want to load: ");
+                System.out.println("Insert the EXACT name of the .bin model you want to load (without the file extension): ");
                 String name = scanner.nextLine();
                 try {
                     networkModel = BinaryPersistence.load(name);
                 }
                 catch (IOException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    System.out.println("\nAn error has occurred and the model has not been loaded.");
+                    return null;
                 }
             }
             break;
             default:
-                System.out.println("Unrecognized input in a return method. Exiting program...");
-                System.exit(0);
-                break;
+                System.out.println("\nUnrecognized input.");
+                return null;
         }
         return networkModel;
     }
@@ -167,9 +170,7 @@ public class Main {
         return networkModel;
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
+    public static TrainedModel menu1(Scanner scanner) {
         System.out.println("""
                 
                 1 - Start training
@@ -184,15 +185,26 @@ public class Main {
                 break;
             case 2:
                 networkModel = loadModel(scanner);
+                if (networkModel == null) {
+                    return null;
+                }
                 break;
             case 0:
                 System.exit(0);
                 break;
             default:
                 System.out.println("Unrecognized input.");
-                System.exit(0);
-                break;
+                return null;
         }
+        return networkModel;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        TrainedModel networkModel = null;
+        do {
+            networkModel = menu1(scanner);
+        } while (networkModel == null);
 
         Network network = networkModel.getNetwork();
         Vocabulary vocab = networkModel.getVocabulary();
