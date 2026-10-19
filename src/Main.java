@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void saveNetwork(Scanner scanner, TrainedModel networkModel) {
         System.out.println("""
+                
                 Choose the save format:
                 
                 1 - Text (.txt) [Slower, modifiable]
@@ -46,6 +47,7 @@ public class Main {
     public static TrainedModel loadModel(Scanner scanner) {
         TrainedModel networkModel = null;
         System.out.println("""
+                
                 Which file format you want to load?
                 
                 1 - Text (.txt)
@@ -62,7 +64,7 @@ public class Main {
                 }
                 catch (IOException e) {
                     e.printStackTrace();
-                    System.out.println("An error has occurred and the model has not been loaded.");
+                    System.out.println("\nAn error has occurred and the model has not been loaded.");
                     return null;
                 }
             }
@@ -151,7 +153,7 @@ public class Main {
                 
                 1 - Continue
                 2 - Save network
-                0 - Exit
+                0 - Exit program
                 """, epochs, learningRate);
         int userInput1 = scanner.nextInt();
         scanner.nextLine();
@@ -161,6 +163,9 @@ public class Main {
                 break;
             case 2:
                 saveNetwork(scanner, networkModel);
+                break;
+            case 0:
+                System.exit(0);
                 break;
             default:
                 System.out.println("Unrecognized input.");
@@ -175,7 +180,7 @@ public class Main {
                 
                 1 - Start training
                 2 - Load existing network
-                0 - Exit""");
+                0 - Exit program""");
         int userInput1 = scanner.nextInt();
         scanner.nextLine();
         TrainedModel networkModel = null;
