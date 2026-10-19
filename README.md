@@ -27,9 +27,7 @@ The network takes a sentence, converts it into a bag-of-words vector, and predic
 | `Network.java` | Holds all weights/biases and runs the forward pass (`predict`) |
 | `Trainer.java` | Implements backpropagation and updates the network's weights via `trainOne` |
 | `TrainedModel.java` | Bundles a `Vocabulary` and `Network` together, since a usable model needs both |
-| `TextPersistence.java` | Saves and loads a `TrainedModel` to/from a human-readable file in `SavedModels/` |
-| `BinaryPersistence.java` | Saves and loads a `TrainedModel` to/from a binary file in `SavedModels/` |
-| `FileConverter.java` | Converts files from `SavedModels/` to and from text and binary files when needed |
+| `Persistence.java` | Saves and loads a `TrainedModel` in `SavedModels/` as either plain text or binary, with methods for file conversion |
 | `Main.java` | Runs the interactive CLI — train or load a model, optionally save it, then test sentences in a loop |
 
 ---
