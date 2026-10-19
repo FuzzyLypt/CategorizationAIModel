@@ -73,7 +73,6 @@ Either path leads to a loop where you can type any sentence to classify it and t
 
 ## Roadmap
 
-- Compact persistence and converter static classes into a single class
 - Refactor some methods in order to increase efficiency and respect the DRY rule
 - Multithreaded model training
 - Training data by file input
