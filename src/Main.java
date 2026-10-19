@@ -180,6 +180,7 @@ public class Main {
                 
                 1 - Start training
                 2 - Load existing network
+                3 - Convert existing network
                 0 - Exit program""");
         int userInput1 = scanner.nextInt();
         scanner.nextLine();
@@ -189,10 +190,15 @@ public class Main {
                 networkModel = training(scanner);
                 break;
             case 2:
+            {
                 networkModel = loadModel(scanner);
                 if (networkModel == null) {
                     return null;
                 }
+            }
+                break;
+            case 3:
+                FileConverter.converterMenu(scanner);
                 break;
             case 0:
                 System.exit(0);
