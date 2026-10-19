@@ -14,6 +14,7 @@ The network takes a sentence, converts it into a bag-of-words vector, and predic
 - **Trainable on custom datasets:** Swap in your own labeled sentences to train the network on any binary classification task
 - **Precomputed input vectors:** Training inputs are vectorized once before the epoch loop for efficiency, rather than repeating identical work every epoch
 - **Model persistence:** Save a trained model (vocabulary + weights) to a human-readable text file or a binary file, and reload it later without retraining
+- **File conversion:** Converts files from text or binary to the opposite one when the user needs
 - **Interactive CLI:** A menu-driven console interface to train a new model or load a saved one, optionally save after training, and classify sentences in a loop
 
 ---
@@ -28,6 +29,7 @@ The network takes a sentence, converts it into a bag-of-words vector, and predic
 | `TrainedModel.java` | Bundles a `Vocabulary` and `Network` together, since a usable model needs both |
 | `TextPersistence.java` | Saves and loads a `TrainedModel` to/from a human-readable file in `SavedModels/` |
 | `BinaryPersistence.java` | Saves and loads a `TrainedModel` to/from a binary file in `SavedModels/` |
+| `FileConverter.java` | Converts files from `SavedModels/` to and from text and binary files when needed |
 | `Main.java` | Runs the interactive CLI — train or load a model, optionally save it, then test sentences in a loop |
 
 ---
@@ -65,21 +67,16 @@ Either path leads to a loop where you can type any sentence to classify it and t
 2. **Forward pass:** The vector flows through a hidden layer (ReLU activation) and into a single output neuron (Sigmoid activation), producing a probability
 3. **Training loop:** For each labeled example, the network's prediction is compared to the true label, and the error is backpropagated to adjust every weight and bias, repeated over many epochs
 4. **Testing:** The trained network is evaluated on sentences it has never seen, to check whether it generalized rather than memorized
-5. **Persistence:** A trained model's vocabulary and every weight/bias value can be written to a plain-text file and reconstructed later into a fresh `Network` and `Vocabulary`, bypassing the need to retrain
+5. **Persistence:** A trained model's vocabulary and every weight/bias value can be saved in either binary or plain text and reconstructed later into a fresh `Network` and `Vocabulary`, bypassing the need to retrain
 
 > **Note:** since this is a bag-of-words model, it can only recognize exact words seen during training (words outside the training vocabulary are silently ignored). Expanding the training dataset is the most direct way to improve accuracy.
 
 ---
 
-## Model Storage
-
-Saved models live in a `SavedModels/` folder (created automatically on first save) as plain-text files, with one word or number per line, in a fixed order the loader depends on. They're human-readable for inspection, but aren't meant to be hand-edited, since the format has no labels and relies entirely on line order matching what the loader expects.
-
----
-
 ## Roadmap
 
-- A converter utility to translate saved models between the text and binary formats
+- Compact persistence and converter static classes into a single class
+- Refactor some methods in order to increase efficiency and respect the DRY rule
 - Multithreaded model training
 - Training data by file input
 - A lightweight UI
