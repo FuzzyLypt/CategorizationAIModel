@@ -18,7 +18,7 @@ public class Main {
                 System.out.println("Insert the name of the model you are about to save: ");
                 String nameTxt = scanner.nextLine();
                 try {
-                    TextPersistence.save(networkModel, nameTxt);
+                    Persistence.saveAsText(networkModel, nameTxt);
                 }
                 catch (IOException e) {
                     throw new RuntimeException(e);
@@ -31,7 +31,7 @@ public class Main {
                 System.out.println("Insert the name of the model you are about to save: ");
                 String nameBin = scanner.nextLine();
                 try {
-                    BinaryPersistence.save(networkModel, nameBin);
+                    Persistence.saveAsBinary(networkModel, nameBin);
                 }
                 catch (IOException e) {
                     throw new RuntimeException(e);
@@ -60,7 +60,7 @@ public class Main {
                 System.out.println("Insert the EXACT name of the .txt model you want to load (without the file extension): ");
                 String name = scanner.nextLine();
                 try {
-                    networkModel = TextPersistence.load(name);
+                    networkModel = Persistence.loadText(name);
                 }
                 catch (IOException e) {
                     e.printStackTrace();
@@ -75,7 +75,7 @@ public class Main {
                 System.out.println("Insert the EXACT name of the .bin model you want to load (without the file extension): ");
                 String name = scanner.nextLine();
                 try {
-                    networkModel = BinaryPersistence.load(name);
+                    networkModel = Persistence.loadBinary(name);
                 }
                 catch (IOException e) {
                     e.printStackTrace();
@@ -198,7 +198,7 @@ public class Main {
             }
                 break;
             case 3:
-                FileConverter.converterMenu(scanner);
+                Persistence.converterMenu(scanner);
                 break;
             case 0:
                 System.exit(0);
